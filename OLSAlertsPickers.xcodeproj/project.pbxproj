@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65CFE76F21EBDE2A00A51361 /* MMBAlertsPickers.h in Headers */ = {isa = PBXBuildFile; fileRef = 65CFE76D21EBDE2A00A51361 /* MMBAlertsPickers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		65CFE76F21EBDE2A00A51361 /* OLSAlertsPickers.h in Headers */ = {isa = PBXBuildFile; fileRef = 65CFE76D21EBDE2A00A51361 /* OLSAlertsPickers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65CFE77321EBDE5600A51361 /* GalleryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27C7E0821771E5300266414 /* GalleryConfiguration.swift */; };
 		65CFE77421EBDE5600A51361 /* ItemControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27C7E0921771E5300266414 /* ItemControllerDelegate.swift */; };
 		65CFE77521EBDE5600A51361 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27C7E0A21771E5300266414 /* UtilityFunctions.swift */; };
@@ -238,7 +238,7 @@
 
 /* Begin PBXFileReference section */
 		65CFE76B21EBDE2A00A51361 /* MMBAlertsAndPickers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MMBAlertsAndPickers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		65CFE76D21EBDE2A00A51361 /* MMBAlertsPickers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMBAlertsPickers.h; sourceTree = "<group>"; };
+		65CFE76D21EBDE2A00A51361 /* OLSAlertsPickers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OLSAlertsPickers.h; sourceTree = "<group>"; };
 		65CFE76E21EBDE2A00A51361 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8976FDE6240A90FA002D5017 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MMBAlertsPickersLocalizable.strings; sourceTree = "<group>"; };
 		8976FDE7240A90FA002D5017 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -308,7 +308,7 @@
 		FA005E9520162BB5001EA8C6 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		FA005E9720166D51001EA8C6 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		FA25CAA42018677A00D1CB87 /* LikeButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonCell.swift; sourceTree = "<group>"; };
-		FA3BB2732008B41B00E06F8F /* MMBAlertsPickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMBAlertsPickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA3BB2732008B41B00E06F8F /* OLSAlertsPickers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OLSAlertsPickers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA3BB2822008B41B00E06F8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA3BB2882008B45600E06F8F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FA3BB28B2008B46500E06F8F /* picker_assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = picker_assets.xcassets; sourceTree = "<group>"; };
@@ -385,7 +385,7 @@
 		65CFE76C21EBDE2A00A51361 /* MMBAlertsPickers */ = {
 			isa = PBXGroup;
 			children = (
-				65CFE76D21EBDE2A00A51361 /* MMBAlertsPickers.h */,
+				65CFE76D21EBDE2A00A51361 /* OLSAlertsPickers.h */,
 				65CFE76E21EBDE2A00A51361 /* Info.plist */,
 			);
 			path = MMBAlertsPickers;
@@ -509,7 +509,7 @@
 		FA3BB2742008B41B00E06F8F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FA3BB2732008B41B00E06F8F /* MMBAlertsPickers.app */,
+				FA3BB2732008B41B00E06F8F /* OLSAlertsPickers.app */,
 				65CFE76B21EBDE2A00A51361 /* MMBAlertsAndPickers.framework */,
 			);
 			name = Products;
@@ -839,7 +839,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65CFE76F21EBDE2A00A51361 /* MMBAlertsPickers.h in Headers */,
+				65CFE76F21EBDE2A00A51361 /* OLSAlertsPickers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,9 +864,9 @@
 			productReference = 65CFE76B21EBDE2A00A51361 /* MMBAlertsAndPickers.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		FA3BB2722008B41B00E06F8F /* MMBAlertsPickers */ = {
+		FA3BB2722008B41B00E06F8F /* OLSAlertsPickers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FA3BB2852008B41B00E06F8F /* Build configuration list for PBXNativeTarget "MMBAlertsPickers" */;
+			buildConfigurationList = FA3BB2852008B41B00E06F8F /* Build configuration list for PBXNativeTarget "OLSAlertsPickers" */;
 			buildPhases = (
 				FA3BB26F2008B41B00E06F8F /* Sources */,
 				FA3BB2702008B41B00E06F8F /* Frameworks */,
@@ -876,9 +876,9 @@
 			);
 			dependencies = (
 			);
-			name = MMBAlertsPickers;
+			name = OLSAlertsPickers;
 			productName = "Alerts&Pickers";
-			productReference = FA3BB2732008B41B00E06F8F /* MMBAlertsPickers.app */;
+			productReference = FA3BB2732008B41B00E06F8F /* OLSAlertsPickers.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -902,7 +902,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FA3BB26E2008B41B00E06F8F /* Build configuration list for PBXProject "MMBAlertsPickers" */;
+			buildConfigurationList = FA3BB26E2008B41B00E06F8F /* Build configuration list for PBXProject "OLSAlertsPickers" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -916,7 +916,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FA3BB2722008B41B00E06F8F /* MMBAlertsPickers */,
+				FA3BB2722008B41B00E06F8F /* OLSAlertsPickers */,
 				65CFE76A21EBDE2A00A51361 /* MMBAlertsAndPickers */,
 			);
 		};
@@ -1418,7 +1418,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FA3BB26E2008B41B00E06F8F /* Build configuration list for PBXProject "MMBAlertsPickers" */ = {
+		FA3BB26E2008B41B00E06F8F /* Build configuration list for PBXProject "OLSAlertsPickers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA3BB2832008B41B00E06F8F /* Debug */,
@@ -1427,7 +1427,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FA3BB2852008B41B00E06F8F /* Build configuration list for PBXNativeTarget "MMBAlertsPickers" */ = {
+		FA3BB2852008B41B00E06F8F /* Build configuration list for PBXNativeTarget "OLSAlertsPickers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA3BB2862008B41B00E06F8F /* Debug */,
