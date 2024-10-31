@@ -1,16 +1,15 @@
-//guard let layout = collectionView.collectionViewLayout as? VegaScrollFlowLayout else { return }
-//layout.minimumLineSpacing = lineSpacing
-//layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
-//let itemWidth = UIScreen.main.bounds.width - 2 * xInset
-//layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-//collectionView.collectionViewLayout.invalidateLayout()
+// guard let layout = collectionView.collectionViewLayout as? VegaScrollFlowLayout else { return }
+// layout.minimumLineSpacing = lineSpacing
+// layout.sectionInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+// let itemWidth = UIScreen.main.bounds.width - 2 * xInset
+// layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+// collectionView.collectionViewLayout.invalidateLayout()
 
-//https://github.com/ApplikeySolutions/VegaScroll
+// https://github.com/ApplikeySolutions/VegaScroll
 
 import UIKit
 
 open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
-    
     open var springHardness: CGFloat = 15
     open var isPagingEnabled: Bool = true
     
@@ -31,7 +30,7 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
         initialize()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
     }
@@ -53,24 +52,24 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
         super.prepare()
         guard let collectionView = collectionView else { return }
 		
-		// expand the visible rect slightly to avoid flickering when scrolling quickly
-		let expandBy: CGFloat = -100
+        // expand the visible rect slightly to avoid flickering when scrolling quickly
+        let expandBy: CGFloat = -100
         let visibleRect = CGRect(origin: collectionView.bounds.origin,
                                  size: collectionView.frame.size).insetBy(dx: 0, dy: expandBy)
         
         guard let visibleItems = super.layoutAttributesForElements(in: visibleRect) else { return }
-        let indexPathsInVisibleRect = Set(visibleItems.map{ $0.indexPath })
+        let indexPathsInVisibleRect = Set(visibleItems.map { $0.indexPath })
         
         removeNoLongerVisibleBehaviors(indexPathsInVisibleRect: indexPathsInVisibleRect)
         
         let newlyVisibleItems = visibleItems.filter { item in
-            return !visibleIndexPaths.contains(item.indexPath)
+            !visibleIndexPaths.contains(item.indexPath)
         }
         
         addBehaviors(for: newlyVisibleItems)
     }
     
-    open override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    override open func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
         let latestOffset = super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
         guard isPagingEnabled else {
             return latestOffset
@@ -87,34 +86,38 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
         guard let collectionView = collectionView else { return nil }
         let dynamicItems = dynamicAnimator.items(in: rect) as? [UICollectionViewLayoutAttributes]
         dynamicItems?.forEach { item in
-			let convertedY = item.center.y - collectionView.contentOffset.y	- sectionInset.top
-			item.zIndex = item.indexPath.row
-			transformItemIfNeeded(y: convertedY, item: item)
+            let convertedY = item.center.y - collectionView.contentOffset.y - sectionInset.top
+            item.zIndex = item.indexPath.row
+            transformItemIfNeeded(y: convertedY, item: item)
         }
         return dynamicItems
     }
 	
-	private func transformItemIfNeeded(y: CGFloat, item: UICollectionViewLayoutAttributes) {
-		guard itemSize.height > 0, y < itemSize.height * 0.5 else {
-			return
-		}
+    private func transformItemIfNeeded(y: CGFloat, item: UICollectionViewLayoutAttributes) {
+        guard itemSize.height > 0, y < itemSize.height * 0.5 else {
+            return
+        }
 		
-		let scaleFactor: CGFloat = scaleDistributor(x: y)
+        let scaleFactor: CGFloat = scaleDistributor(x: y)
 		
-		let yDelta = getYDelta(y: y)
+        let yDelta = getYDelta(y: y)
 		
-		item.transform3D = CATransform3DTranslate(transformIdentity, 0, yDelta, 0)
-		item.transform3D = CATransform3DScale(item.transform3D, scaleFactor, scaleFactor, scaleFactor)
-		item.alpha = alphaDistributor(x: y)
-	
-	}
+        item.transform3D = CATransform3DTranslate(transformIdentity, 0, yDelta, 0)
+        item.transform3D = CATransform3DScale(item.transform3D, scaleFactor, scaleFactor, scaleFactor)
+        item.alpha = alphaDistributor(x: y)
+    }
 	
     override open func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return dynamicAnimator.layoutAttributesForCell(at: indexPath)!
+        if let attributes = dynamicAnimator.layoutAttributesForCell(at: indexPath) {
+            return attributes
+        } else {
+            // 处理 nil 的情况，例如返回默认的布局属性
+            return super.layoutAttributesForItem(at: indexPath)
+        }
     }
     
     override open func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        let scrollView = self.collectionView!
+        let scrollView = collectionView!
         let delta = newBounds.origin.y - scrollView.bounds.origin.y
         latestDelta = delta
         
@@ -131,17 +134,17 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
     // MARK: - Utils
     
     private func removeNoLongerVisibleBehaviors(indexPathsInVisibleRect indexPaths: Set<IndexPath>) {
-        //get no longer visible behaviors
+        // get no longer visible behaviors
         let noLongerVisibleBehaviours = dynamicAnimator.behaviors.filter { behavior in
             guard let behavior = behavior as? UIAttachmentBehavior,
-                let item = behavior.items.first as? UICollectionViewLayoutAttributes else { return false }
+                  let item = behavior.items.first as? UICollectionViewLayoutAttributes else { return false }
             return !indexPaths.contains(item.indexPath)
         }
         
-        //remove no longer visible behaviors
+        // remove no longer visible behaviors
         noLongerVisibleBehaviours.forEach { behavior in
             guard let behavior = behavior as? UIAttachmentBehavior,
-                let item = behavior.items.first as? UICollectionViewLayoutAttributes else { return }
+                  let item = behavior.items.first as? UICollectionViewLayoutAttributes else { return }
             self.dynamicAnimator.removeBehavior(behavior)
             self.visibleIndexPaths.remove(item.indexPath)
         }
@@ -155,8 +158,8 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
             let springBehaviour = UIAttachmentBehavior(item: item, attachedToAnchor: item.center)
             
             springBehaviour.length = 0.0
-            //springBehaviour.damping = 0.8
-            //springBehaviour.frequency = 1.0
+            // springBehaviour.damping = 0.8
+            // springBehaviour.frequency = 1.0
             
             if !CGPoint.zero.equalTo(touchLocation) {
                 item.center = getUpdatedBehaviorItemCenter(behavior: springBehaviour, touchLocation: touchLocation)
@@ -167,7 +170,7 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
         }
     }
     
-    private func getUpdatedBehaviorItemCenter(behavior: UIAttachmentBehavior,touchLocation: CGPoint) -> CGPoint {
+    private func getUpdatedBehaviorItemCenter(behavior: UIAttachmentBehavior, touchLocation: CGPoint) -> CGPoint {
         let yDistanceFromTouch = abs(touchLocation.y - behavior.anchorPoint.y)
         let xDistanceFromTouch = abs(touchLocation.x - behavior.anchorPoint.x)
         let scrollResistance = (yDistanceFromTouch + xDistanceFromTouch) / (springHardness * 100)
@@ -191,24 +194,24 @@ open class VerticalScrollFlowLayout: UICollectionViewFlowLayout {
      - parameter xOrigin: x coordinate of the function origin.
      */
     private func distributor(x: CGFloat, threshold: CGFloat, xOrigin: CGFloat) -> CGFloat {
-		guard threshold > xOrigin else {
-			return 1
-		}
-        var arg = (x - xOrigin)/(threshold - xOrigin)
+        guard threshold > xOrigin else {
+            return 1
+        }
+        var arg = (x - xOrigin) / (threshold - xOrigin)
         arg = arg <= 0 ? 0 : arg
         let y = sqrt(arg)
         return y > 1 ? 1 : y
     }
 	
-	private func scaleDistributor(x: CGFloat) -> CGFloat {
-		return distributor(x: x, threshold: itemSize.height * 0.5, xOrigin: -itemSize.height * 5)
+    private func scaleDistributor(x: CGFloat) -> CGFloat {
+        return distributor(x: x, threshold: itemSize.height * 0.5, xOrigin: -itemSize.height * 5)
     }
     
     private func alphaDistributor(x: CGFloat) -> CGFloat {
-		return distributor(x: x, threshold: itemSize.height * 0.5, xOrigin: -itemSize.height)
+        return distributor(x: x, threshold: itemSize.height * 0.5, xOrigin: -itemSize.height)
     }
 	
-	private func getYDelta(y: CGFloat) -> CGFloat {
-		return itemSize.height * 0.5 - y
-	}
+    private func getYDelta(y: CGFloat) -> CGFloat {
+        return itemSize.height * 0.5 - y
+    }
 }
